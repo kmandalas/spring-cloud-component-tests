@@ -1,0 +1,38 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/v1/status/([0-9]*)"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+
+            "trackingNumber": 11212,
+            "status": "IN_TRANSIT",
+            "smsSent": "true"
+
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/v1/track/([0-9]*)"
+      },
+      "response": {
+        "status": 200,
+        "body": "Local Post Office",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+
+  ]
+}
+

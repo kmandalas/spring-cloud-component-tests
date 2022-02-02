@@ -1,0 +1,26 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: order-service-test
+  cloud:
+    service-registry:
+      auto-registration:
+        enabled: false
+    loadbalancer:
+      ribbon:
+        enabled: false
+    config:
+      enabled: false
+  jpa:
+    show-sql: true
+
+eureka:
+  client:
+    enabled: false
+    service-url:
+      registerWithEureka: false
+
+location-service:
+  url: http://localhost:9999/v1/track/
