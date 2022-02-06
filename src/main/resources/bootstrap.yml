@@ -2,3 +2,10 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+  security:
+    filter:
+      order: 10
+    user:
+      name: sampleUser #pass: yeeet_User$%
+      password: $2a$10$hU1jwWEr1tO4Wajl4pSBB.XnViY.8X0qJP/bDd6y7xGhlJTRhHAtm
+      secret-key: S/{@w&#j,K
