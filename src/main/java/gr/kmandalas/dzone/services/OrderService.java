@@ -1,5 +1,9 @@
-package gr.kmandalas.dzone;
+package gr.kmandalas.dzone.services;
 
+import gr.kmandalas.dzone.FulfillmentClient;
+import gr.kmandalas.dzone.Order;
+import gr.kmandalas.dzone.OrderRepository;
+import gr.kmandalas.dzone.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,7 +40,7 @@ public class OrderService {
         // 3. external call to get the item's location
         if ("IN_TRANSIT".equals(os.getStatus())) { // todo: add a trivial enum
             var location = restTemplate
-                .getForEntity(locationServiceUrl + os.getTrackingNumber(), String.class).getBody();
+                    .getForEntity(locationServiceUrl + os.getTrackingNumber(), String.class).getBody();
             os.setLocation(location);
         }
 
