@@ -22,5 +22,9 @@ eureka:
     service-url:
       registerWithEureka: false
 
+okta:
+  oauth2:
+    issuer: https://kmandalas/oauth2/default
+
 location-service:
   url: http://localhost:9999/v1/track/

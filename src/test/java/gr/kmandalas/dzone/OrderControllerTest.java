@@ -1,5 +1,6 @@
 package gr.kmandalas.dzone;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -108,7 +109,7 @@ class OrderControllerTest {
     void testGetOrderStatus() throws Exception {
         orderRepository.save(createOrder("11212",
             "   [{\"name\": \"Item 1\", \"amount\" : 300}, {\"name\": \"Item2\", \"amount\" : 180}]\n"));
-        mockMvc.perform(get("/api/orders/11212/status")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/orders/11212/status").with(jwt())).andExpect(status().isOk());
     }
 
     private Order createOrder(String trackingNumber, String items) {
