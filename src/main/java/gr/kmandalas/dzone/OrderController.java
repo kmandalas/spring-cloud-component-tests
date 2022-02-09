@@ -1,6 +1,7 @@
 package gr.kmandalas.dzone;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ public class OrderController {
  private final OrderService orderService;
 
   @GetMapping
+  @PreAuthorize("hasAuthority('backoffice')")
   public List<Order> getAllOrders() {
     return orderService.getAllOrders();
   }

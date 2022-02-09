@@ -13,8 +13,10 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -106,10 +108,23 @@ class OrderControllerTest {
 
     @Test
     @org.junit.jupiter.api.Order(1)
-    void testGetOrderStatus() throws Exception {
+    void getStatus_withValidJwtToken_returnsOk() throws Exception {
         orderRepository.save(createOrder("11212",
             "   [{\"name\": \"Item 1\", \"amount\" : 300}, {\"name\": \"Item2\", \"amount\" : 180}]\n"));
         mockMvc.perform(get("/api/orders/11212/status").with(jwt())).andExpect(status().isOk());
+    }
+
+    @Test
+    @org.junit.jupiter.api.Order(2)
+    void getAllOrders_withValidJwtToken_returnsOk() throws Exception {
+        mockMvc.perform(get("/api/orders").with(jwt().authorities(new SimpleGrantedAuthority("backoffice"))))
+               .andExpect(status().isOk());
+    }
+
+    @Test
+    @org.junit.jupiter.api.Order(2)
+    void getAllOrders_withMissingAuthorities_returnsForbidden() throws Exception {
+        mockMvc.perform(get("/api/orders").with(jwt())).andExpect(status().isForbidden());
     }
 
     private Order createOrder(String trackingNumber, String items) {
