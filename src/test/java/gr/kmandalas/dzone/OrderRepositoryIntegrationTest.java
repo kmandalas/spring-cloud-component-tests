@@ -11,14 +11,14 @@ import java.util.List;
 
 @DataJpaTest(properties = {"spring.test.database.replace=NONE",
                            "spring.datasource.url=jdbc:tc:postgresql:12:///tutorial"})
-class OrderRepositoryShortTest {
+class OrderRepositoryIntegrationTest {
 
     @Autowired
     private OrderRepository orderRepository;
 
     @Test
     @Sql("/scripts/init_test_data.sql")
-    void shouldReturnOrdersThatContainMacBookPro() {
+    void shouldReturnOrdersThatContainItemSpecial() {
         List<Order> orders = orderRepository.findAllContainingItemSpecial();
         assertEquals(2, orders.size());
     }
