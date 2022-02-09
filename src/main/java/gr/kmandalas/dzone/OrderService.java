@@ -2,8 +2,10 @@ package gr.kmandalas.dzone;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,8 +26,9 @@ public class OrderService {
 
     public OrderStatus getOrderStatus(String trackingNumber) {
         // 1. Data retrieval from a relational database
-        var order = orderRepository.findDistinctByTrackingNumber(trackingNumber); // todo: add NOT_FOUND case and test
-        OrderStatus os = new OrderStatus();
+        var order = orderRepository.findDistinctByTrackingNumber(trackingNumber)
+                                   .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Not Found"));
+        var os = new OrderStatus();
         os.setTrackingNumber(order.getTrackingNumber());
 
         // 2. internal feign call to get the delivery status
@@ -34,7 +37,7 @@ public class OrderService {
         os.setSmsSent(fulfillmentStatus.getSmsSent());
 
         // 3. external call to get the item's location
-        if ("IN_TRANSIT".equals(os.getStatus())) { // todo: add a trivial enum
+        if ("IN_TRANSIT".equals(os.getStatus())) {
             var location = restTemplate
                 .getForEntity(locationServiceUrl + os.getTrackingNumber(), String.class).getBody();
             os.setLocation(location);

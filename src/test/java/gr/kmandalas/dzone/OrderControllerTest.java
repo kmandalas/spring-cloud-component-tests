@@ -116,13 +116,19 @@ class OrderControllerTest {
 
     @Test
     @org.junit.jupiter.api.Order(2)
+    void getStatus_withInvalidTrackingNumber_returnsNotFound() throws Exception {
+        mockMvc.perform(get("/api/orders/11212/status").with(jwt())).andExpect(status().isNotFound());
+    }
+
+    @Test
+    @org.junit.jupiter.api.Order(3)
     void getAllOrders_withValidJwtToken_returnsOk() throws Exception {
         mockMvc.perform(get("/api/orders").with(jwt().authorities(new SimpleGrantedAuthority("backoffice"))))
                .andExpect(status().isOk());
     }
 
     @Test
-    @org.junit.jupiter.api.Order(2)
+    @org.junit.jupiter.api.Order(4)
     void getAllOrders_withMissingAuthorities_returnsForbidden() throws Exception {
         mockMvc.perform(get("/api/orders").with(jwt())).andExpect(status().isForbidden());
     }
