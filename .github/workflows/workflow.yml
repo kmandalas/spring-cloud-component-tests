@@ -25,6 +25,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Generate coverage report
+        run: mvn clean test
+
       - name: Codecov
         uses: codecov/codecov-action@v2.1.0
         with:
