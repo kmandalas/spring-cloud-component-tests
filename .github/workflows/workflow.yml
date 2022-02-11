@@ -29,9 +29,9 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          #directory: ./tests/_output
-          #files: ./tests/_output/coverage.xml
+          #directory: ./target/surefire-reports
+#          files:
           version: "v0.1.15"
           fail_ci_if_error: true # optional (default = false)
-          #verbose: false # optional (default = false)
+          verbose: true # optional (default = false)
 
