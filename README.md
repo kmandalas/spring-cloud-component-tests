@@ -1,4 +1,4 @@
-![CodeCov](https://github.com/kmandalas/spring-cloud-component-tests/workflows/CodeCov/badge.svg)
+![Component Tests](https://github.com/kmandalas/spring-cloud-component-tests/workflows/CodeCov/badge.svg)
 [![codecov](https://codecov.io/gh/kmandalas/spring-cloud-component-tests/branch/main/graph/badge.svg)](https://codecov.io/gh/kmandalas/spring-cloud-component-tests)
 
 # Codebase for the article post [Component Tests for Spring Cloud Microservices](https://dzone.com/articles/Component-Tests-for-Spring-Cloud-Microservices)
