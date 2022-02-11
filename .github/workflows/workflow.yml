@@ -26,11 +26,12 @@ jobs:
       - uses: actions/checkout@main
 
       - name: Codecov
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v2
         with:
           #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           #directory: ./tests/_output
           #files: ./tests/_output/coverage.xml
+          version: "v0.1.15"
           fail_ci_if_error: true # optional (default = false)
           #verbose: false # optional (default = false)
 
