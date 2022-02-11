@@ -23,15 +23,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
 
       - name: Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v2.1.0
         with:
           #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          #directory: ./target/surefire-reports
-#          files:
-          version: "v0.1.15"
+          directory: ./target/surefire-reports
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
 
